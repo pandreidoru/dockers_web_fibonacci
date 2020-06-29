@@ -4,22 +4,22 @@ services:
   - docker
 
 before_install:
-  - docker build -t pandreidoru/dockers_web_fibonacci/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t pandreidoru/dockers_web_fibonacci-react-test -f ./client/Dockerfile.dev ./client
 
 scripts:
-  - docker run -e CI=true pandreidoru/dockers_web_fibonacci/react-test npm test
+  - docker run -e CI=true pandreidoru/dockers_web_fibonacci-react-test npm test
 
 after_success:
-  - docker build -t pandreidoru/dockers_web_fibonacci/multi-client ./client
-  - docker build -t pandreidoru/dockers_web_fibonacci/multi-nginx ./nginx
-  - docker build -t pandreidoru/dockers_web_fibonacci/multi-server ./server
-  - docker build -t pandreidoru/dockers_web_fibonacci/multi-worker ./worker
+  - docker build -t pandreidoru/dockers_web_fibonacci-client ./client
+  - docker build -t pandreidoru/dockers_web_fibonacci-nginx ./nginx
+  - docker build -t pandreidoru/dockers_web_fibonacci-server ./server
+  - docker build -t pandreidoru/dockers_web_fibonacci-worker ./worker
 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
   # Push docker images to docker hub
-  - docker push pandreidoru/dockers_web_fibonacci/multi-client
-  - docker push pandreidoru/dockers_web_fibonacci/multi-nginx
-  - docker push pandreidoru/dockers_web_fibonacci/multi-server
-  - docker push pandreidoru/dockers_web_fibonacci/multi-worker
+  - docker push pandreidoru/dockers_web_fibonacci-client
+  - docker push pandreidoru/dockers_web_fibonacci-nginx
+  - docker push pandreidoru/dockers_web_fibonacci-server
+  - docker push pandreidoru/dockers_web_fibonacci-worker
